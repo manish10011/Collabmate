@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,18 +11,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+  <!-- MAIN APP CONTAINER -->
   <div class="app-container">
     <aside class="sidebar">
       <div class="logo">
-        <div class="logo-icon"></div>
+        <img src="logo.png" alt="CollabMate Logo" class="logo-icon">
         <h2>CollabMate</h2>
       </div>
       <nav class="nav-menu">
-        <a href="#" class="nav-item active">Dashboard</a>
-        <a href="#" class="nav-item">Tasks</a>
-        <a href="#" class="nav-item">Timeline</a>
-        <a href="#" class="nav-item">Team Activity</a>
+        <a href="#" class="nav-item active" data-target="view-dashboard">Dashboard</a>
+        <a href="#" class="nav-item" data-target="view-tasks">Tasks</a>
+        <a href="#" class="nav-item" data-target="view-timeline">Timeline</a>
+        <a href="#" class="nav-item" data-target="view-activity">Team Activity</a>
       </nav>
       <div class="project-info">
         <h3>EC2 Deployment</h3>
@@ -32,35 +35,126 @@
     <main class="main-content">
       <header class="topbar">
         <div>
-          <h1>Project Dashboard</h1>
+          <h1 id="page-title">Project Dashboard</h1>
           <p class="subtitle">Cloud Technology Group Project</p>
         </div>
-        <div class="user-profile">
-          <img src="https://i.pravatar.cc/150?img=32" alt="User Profile" class="avatar">
+        <div class="user-profile" id="user-profile-btn" title="Click to logout">
+          <span class="user-name" id="display-username">User</span>
+          <img src="https://i.pravatar.cc/150?img=32" alt="User Profile" class="avatar" id="display-avatar">
         </div>
       </header>
 
-      <div class="dashboard-grid">
-        <!-- Progress Tracking -->
-        <section class="card progress-section">
-          <h2>Project Progress</h2>
-          <div class="progress-bar-container">
-            <div class="progress-bar" style="width: 65%;"></div>
-          </div>
-          <div class="progress-stats">
-            <span>65% Completed</span>
-            <span>12/18 Tasks</span>
-          </div>
-        </section>
+      <!-- VIEW: DASHBOARD -->
+      <div id="view-dashboard" class="view-section active">
+        <div class="dashboard-grid">
+          <!-- Progress Tracking -->
+          <section class="card progress-section">
+            <h2>Project Progress</h2>
+            <div class="progress-bar-container">
+              <div class="progress-bar" style="width: 65%;"></div>
+            </div>
+            <div class="progress-stats">
+              <span>65% Completed</span>
+              <span>12/18 Tasks</span>
+            </div>
+          </section>
 
-        <!-- Task Assignment / Splitting Tasks -->
-        <section class="card tasks-section">
+          <!-- Task Assignment / Splitting Tasks -->
+          <section class="card tasks-section">
+            <div class="section-header">
+              <h2>Active Tasks</h2>
+              <button class="btn-primary">+ Add Task</button>
+            </div>
+            <div class="task-list">
+              <div class="task-item">
+                <div class="task-details">
+                  <h3>Set up EC2 Instance</h3>
+                  <span class="badge in-progress">In Progress</span>
+                </div>
+                <div class="task-meta">
+                  <img src="https://i.pravatar.cc/150?img=11" alt="Assignee" class="avatar-small">
+                  <span>Due Tomorrow</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="task-details">
+                  <h3>Design Database Schema</h3>
+                  <span class="badge completed">Completed</span>
+                </div>
+                <div class="task-meta">
+                  <img src="https://i.pravatar.cc/150?img=47" alt="Assignee" class="avatar-small">
+                  <span>Done</span>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="task-details">
+                  <h3>Develop REST API</h3>
+                  <span class="badge pending">Pending</span>
+                </div>
+                <div class="task-meta">
+                  <img src="https://i.pravatar.cc/150?img=12" alt="Assignee" class="avatar-small">
+                  <span>Due in 4 days</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Team Activity -->
+          <section class="card activity-section">
+            <h2>Recent Activity</h2>
+            <ul class="activity-feed">
+              <li class="activity-item">
+                <div class="activity-icon update"></div>
+                <div class="activity-content">
+                  <p><strong>Alex</strong> updated task <em>Set up EC2 Instance</em></p>
+                  <span class="time">2 hours ago</span>
+                </div>
+              </li>
+              <li class="activity-item">
+                <div class="activity-icon complete"></div>
+                <div class="activity-content">
+                  <p><strong>Sarah</strong> completed <em>Design Database Schema</em></p>
+                  <span class="time">5 hours ago</span>
+                </div>
+              </li>
+              <li class="activity-item">
+                <div class="activity-icon assign"></div>
+                <div class="activity-content">
+                  <p><strong>Mike</strong> assigned <em>Develop REST API</em> to himself</p>
+                  <span class="time">1 day ago</span>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <!-- VIEW: TASKS -->
+      <div id="view-tasks" class="view-section" style="display: none;">
+        <div class="card full-width">
           <div class="section-header">
-            <h2>Active Tasks</h2>
-            <button class="btn-primary">+ Add Task</button>
+            <h2>All Team Tasks</h2>
+            <button class="btn-primary">+ New Task</button>
           </div>
-          <div class="task-list">
-            <div class="task-item">
+          <div class="task-filters">
+            <span class="filter active" data-filter="all">All Tasks</span>
+            <span class="filter" data-filter="pending">To Do</span>
+            <span class="filter" data-filter="in-progress">In Progress</span>
+            <span class="filter" data-filter="review">Review</span>
+            <span class="filter" data-filter="completed">Done</span>
+          </div>
+          <div class="task-list full-list" id="task-list-container">
+            <div class="task-item" data-status="completed">
+              <div class="task-details">
+                <h3>Create HTML/CSS Mockups</h3>
+                <span class="badge completed">Completed</span>
+              </div>
+              <div class="task-meta">
+                <img src="https://i.pravatar.cc/150?img=32" alt="Assignee" class="avatar-small">
+                <span>Done</span>
+              </div>
+            </div>
+            <div class="task-item" data-status="in-progress">
               <div class="task-details">
                 <h3>Set up EC2 Instance</h3>
                 <span class="badge in-progress">In Progress</span>
@@ -70,7 +164,7 @@
                 <span>Due Tomorrow</span>
               </div>
             </div>
-            <div class="task-item">
+            <div class="task-item" data-status="completed">
               <div class="task-details">
                 <h3>Design Database Schema</h3>
                 <span class="badge completed">Completed</span>
@@ -80,7 +174,7 @@
                 <span>Done</span>
               </div>
             </div>
-            <div class="task-item">
+            <div class="task-item" data-status="pending">
               <div class="task-details">
                 <h3>Develop REST API</h3>
                 <span class="badge pending">Pending</span>
@@ -90,17 +184,80 @@
                 <span>Due in 4 days</span>
               </div>
             </div>
+            <div class="task-item" data-status="pending">
+              <div class="task-details">
+                <h3>Configure Load Balancer</h3>
+                <span class="badge pending">Pending</span>
+              </div>
+              <div class="task-meta">
+                <div class="unassigned-avatar">?</div>
+                <span>Due in 7 days</span>
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
+      </div>
 
-        <!-- Team Activity -->
-        <section class="card activity-section">
-          <h2>Recent Activity</h2>
-          <ul class="activity-feed">
+      <!-- VIEW: TIMELINE -->
+      <div id="view-timeline" class="view-section" style="display: none;">
+        <div class="card full-width">
+          <div class="section-header">
+            <h2>Project Timeline</h2>
+          </div>
+          <div class="timeline-container">
+            <div class="timeline-track">
+              <!-- Timeline nodes -->
+              <div class="timeline-node completed">
+                <div class="node-date">Apr 1</div>
+                <div class="node-content">
+                  <h4>Project Kickoff</h4>
+                  <p>Formed the team, decided on EC2 deployment</p>
+                </div>
+              </div>
+              <div class="timeline-node completed">
+                <div class="node-date">Apr 5</div>
+                <div class="node-content">
+                  <h4>Requirement Analysis</h4>
+                  <p>Finalized feature list and tech stack</p>
+                </div>
+              </div>
+              <div class="timeline-node in-progress">
+                <div class="node-date">Apr 10</div>
+                <div class="node-content">
+                  <h4>Frontend Design</h4>
+                  <p>Building the lightweight UI mockup</p>
+                </div>
+              </div>
+              <div class="timeline-node pending">
+                <div class="node-date">Apr 15</div>
+                <div class="node-content">
+                  <h4>Backend & EC2 Setup</h4>
+                  <p>Deploy application architecture to AWS EC2</p>
+                </div>
+              </div>
+              <div class="timeline-node pending">
+                <div class="node-date">Apr 20</div>
+                <div class="node-content">
+                  <h4>Final Presentation</h4>
+                  <p>Project demo to instructors</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW: ACTIVITY -->
+      <div id="view-activity" class="view-section" style="display: none;">
+        <div class="card full-width">
+          <div class="section-header">
+            <h2>Comprehensive Team Activity</h2>
+          </div>
+          <ul class="activity-feed extensive-feed">
             <li class="activity-item">
               <div class="activity-icon update"></div>
               <div class="activity-content">
-                <p><strong>Alex</strong> updated task <em>Set up EC2 Instance</em></p>
+                <p><strong>Alex</strong> updated task <em>Set up EC2 Instance</em> from "To Do" to "In Progress"</p>
                 <span class="time">2 hours ago</span>
               </div>
             </li>
@@ -118,10 +275,82 @@
                 <span class="time">1 day ago</span>
               </div>
             </li>
+            <li class="activity-item">
+              <div class="activity-icon update"></div>
+              <div class="activity-content">
+                <p><strong>You</strong> joined the project <em>Cloud Technology Group Project</em></p>
+                <span class="time">2 days ago</span>
+              </div>
+            </li>
+            <li class="activity-item">
+              <div class="activity-icon complete"></div>
+              <div class="activity-content">
+                <p><strong>Mike</strong> created the project <em>Cloud Technology Group Project</em></p>
+                <span class="time">2 days ago</span>
+              </div>
+            </li>
           </ul>
-        </section>
+        </div>
       </div>
+
     </main>
   </div>
+
+  <script>
+    // View Switching Logic
+    const viewSwitchInit = () => {
+      const navItems = document.querySelectorAll(".nav-item");
+      const viewSections = document.querySelectorAll(".view-section");
+      const pageTitle = document.getElementById("page-title");
+
+      navItems.forEach(item => {
+        item.addEventListener("click", (e) => {
+          e.preventDefault();
+          navItems.forEach(nav => nav.classList.remove("active"));
+          item.classList.add("active");
+          const targetId = item.getAttribute("data-target");
+          pageTitle.innerText = item.innerText === "Dashboard" ? "Project Dashboard" : item.innerText;
+
+          viewSections.forEach(section => {
+            if (section.id === targetId) {
+              section.style.display = "block";
+              section.style.animation = "fadeIn 0.3s ease-out forwards";
+            } else {
+              section.style.display = "none";
+              section.style.animation = "";
+            }
+          });
+        });
+      });
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      viewSwitchInit();
+
+      // Task Filtering Logic
+      const taskFilters = document.querySelectorAll(".task-filters .filter");
+      const taskItems = document.querySelectorAll("#task-list-container .task-item");
+
+      if (taskFilters.length > 0 && taskItems.length > 0) {
+        taskFilters.forEach(filterBtn => {
+          filterBtn.addEventListener("click", () => {
+            taskFilters.forEach(btn => btn.classList.remove("active"));
+            filterBtn.classList.add("active");
+
+            const filterValue = filterBtn.getAttribute("data-filter");
+
+            taskItems.forEach(item => {
+              if (filterValue === "all" || item.getAttribute("data-status") === filterValue) {
+                item.style.display = "flex";
+              } else {
+                item.style.display = "none";
+              }
+            });
+          });
+        });
+      }
+    });
+  </script>
 </body>
+
 </html>
